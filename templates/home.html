@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <!--Meta-->
     <meta charset="UTF-8">
@@ -55,9 +55,21 @@ var loadFile = function(event) {
 
   <div class="tab-pane fade show active container" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
-      <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="margin : 10px;">
-      <p><img class="image" style="margin : 10px;" id="output" /></p>
-      <button style="margin : 10px;">Predict Image</button>
+      <form action = "uploader" method = "POST"
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file" />
+         <input type = "submit"/>
+      </form>
+
+<!--      <form action="imagc_predict" method="post" enctype="multipart/form-data">-->
+<!--&lt;!&ndash;          <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="margin : 10px;">&ndash;&gt;-->
+<!--&lt;!&ndash;          <p><img class="image" style="margin : 10px;" id="output" /></p>&ndash;&gt;-->
+<!--          <label for="img">Select image:</label>-->
+<!--          <input type="file" id="img" name="img" accept="image/*">-->
+<!--          <input style="margin : 10px;" type="submit" value="Submit">Predict Image</input>-->
+<!--      </form>-->
+
+
   </div>
 
 
