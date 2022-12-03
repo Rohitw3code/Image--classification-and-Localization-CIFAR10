@@ -14,11 +14,12 @@ def home():
 
     
 
-@app.route("/get")
-def get_bot_response():
-    userText = request.args.get('msg')
-    reply  = BoldReply(userText)
-    return reply
+
+@app.route("/digit_predict",methods=["POST"])
+def predict_image():
+    file = request.files['file']
+    filename = file.filename
+    print("image name : ",filename)
 
 
 if __name__ == "__main__":
