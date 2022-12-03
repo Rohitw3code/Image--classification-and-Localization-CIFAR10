@@ -26,30 +26,12 @@ def upload_file():
         f = request.files['file']
         imgdata = plt.imread(f.filename)
         n = np.array(imgdata)/255
+        print(n.shape)
         p = n.reshape(1, 32, 32, 3)
         predicted_label = labels[model.predict(p).argmax()]
         print("predicted label is {}".format(predicted_label))
-        return 'file uploaded successfully : '+f.filename
+        return "predicted label is {}".format(predicted_label)
 
-
-@app.route("/imagc_predict1",methods=['GET', 'POST'])
-def predict_image():
-    print("hello this is post request")
-    # file = request.files['file']
-    # filename = file.filename
-    # imgdata = plt.imread(filename)
-    print("image name : ",request)
-    return 'hello'
-
-    '''
-    if str(filename).strip():
-        n = np.array(imgdata)/255
-        p = n.reshape(1, 32, 32, 3)
-        predicted_label = labels[model.predict(p).argmax()]
-        print("predicted label is {}".format(predicted_label))
-    else:
-        return render_template("home.html")
-'''
 
 if __name__ == "__main__":
     app.run(debug=True)

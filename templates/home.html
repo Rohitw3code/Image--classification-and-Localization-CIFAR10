@@ -57,17 +57,13 @@ var loadFile = function(event) {
 
       <form action = "uploader" method = "POST"
          enctype = "multipart/form-data">
-         <input type = "file" name = "file" />
-         <input type = "submit"/>
-      </form>
+<!--         <input type = "file" name = "file"   />-->
+          <input type="file"  name="file" onchange="loadFile(event)" style="margin : 10px;">
+          <p><img class="image" style="margin : 10px;" id="output" /></p>
+         <input type = "submit"style="margin : 10px;" />
 
-<!--      <form action="imagc_predict" method="post" enctype="multipart/form-data">-->
-<!--&lt;!&ndash;          <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="margin : 10px;">&ndash;&gt;-->
-<!--&lt;!&ndash;          <p><img class="image" style="margin : 10px;" id="output" /></p>&ndash;&gt;-->
-<!--          <label for="img">Select image:</label>-->
-<!--          <input type="file" id="img" name="img" accept="image/*">-->
-<!--          <input style="margin : 10px;" type="submit" value="Submit">Predict Image</input>-->
-<!--      </form>-->
+
+      </form>
 
 
   </div>
