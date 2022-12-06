@@ -1,34 +1,23 @@
+import io
+import pickle
+from base64 import b64encode
+
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np  # linear algebra
+import tensorflow as tf
+from PIL import Image
+from PIL import ImageDraw
 from flask import Flask, render_template, request
 from tensorflow import keras
-import numpy as np # linear algebra
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
-import os
-import glob
-import io
-import PIL
-import cv2
-import xmltodict
-from base64 import b64encode
-from PIL import Image
-import random
-from PIL import ImageDraw
-from sklearn.preprocessing import LabelBinarizer
-import tensorflow as tf
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import LabelBinarizer
-from tensorflow.keras.utils import plot_model
-from io import BytesIO
-import base64
 
-import pickle
-
-model = keras.models.load_model('imgclassification.h5')
-rmodel = tf.keras.models.load_model("image_local_model.h5", compile=False)
+model = keras.models.load_model('models/image_classification_model.h5')
+rmodel = tf.keras.models.load_model("models/image_localization_model.h5", compile=False)
 
 app = Flask(__name__)
 
 
-with open('file.pkl', 'rb') as file:
+with open('label_binary.pkl', 'rb') as file:
     encoder = pickle.load(file)
 
 labels = '''airplane automobile bird cat deerdog frog horseship truck'''.split()
@@ -45,20 +34,12 @@ def predictDrawbox(model, image, le):
     h = pred_box[0][3]
     # get class name
     trans = le.inverse_transform(predict[..., 4:])
-
-    img = BytesIO()
-    # im = PIL.Image.fromarray(image)
-    # draw = ImageDraw.Draw(im)
-    # draw.rectangle([x, y, w, h], outline='red')
-    # plt.xlabel(trans[0])
-
     file_object = io.BytesIO()
     img= Image.fromarray(image.astype('uint8'))
     draw = ImageDraw.Draw(img)
     draw.rectangle([x, y, w, h], outline='red')
     img.save(file_object, 'PNG')
     base64img = "data:image/png;base64,"+b64encode(file_object.getvalue()).decode('ascii')
-
     return base64img,trans[0]
 
 
