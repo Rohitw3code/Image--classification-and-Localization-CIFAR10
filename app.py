@@ -51,7 +51,7 @@ def home():
 def upload_file1():
     if request.method == 'POST':
         f = request.files['file']
-        imgdata = plt.imread(f.filename)
+        imgdata = cv2.resize(cv2.imread(f.filename), (32, 32))
         n = np.array(imgdata)/255
         print(n.shape)
         p = n.reshape(1, 32, 32, 3)
