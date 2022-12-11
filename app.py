@@ -3,7 +3,6 @@ import pickle
 from base64 import b64encode
 
 import cv2
-import matplotlib.pyplot as plt
 import numpy as np  # linear algebra
 import tensorflow as tf
 from PIL import Image
@@ -11,7 +10,7 @@ from PIL import ImageDraw
 from flask import Flask, render_template, request
 from tensorflow import keras
 
-model = keras.models.load_model('models/image_classification_model.h5')
+model = keras.models.load_model('models/ResNet_CIFAR10_Model_Best.h5')
 rmodel = tf.keras.models.load_model("models/image_localization_model.h5", compile=False)
 
 app = Flask(__name__)
