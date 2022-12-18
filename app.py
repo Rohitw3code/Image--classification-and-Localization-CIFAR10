@@ -50,19 +50,25 @@ def home():
 def upload_file1():
     if request.method == 'POST':
         f = request.files['file']
-        imgdata = cv2.resize(cv2.imread(f.filename), (32, 32))
+        path = "TestDataset/TestImageClassification/"+f.filename
+        imgdata = cv2.resize(cv2.imread(path), (32, 32))
         n = np.array(imgdata)/255
         print(n.shape)
         p = n.reshape(1, 32, 32, 3)
-        predicted_label = labels[model.predict(p).argmax()]
-        print("predicted label is {}".format(predicted_label))
-        return "predicted label is {}".format(predicted_label)
+        try:
+            predicted_label = labels[model.predict(p).argmax()]
+        except:
+            return "Not Supported try another image"
+        finally:
+            print("predicted label is {}".format(predicted_label))
+            return "predicted label is {}".format(predicted_label)
 
 @app.route('/imageLocalUploader', methods=['GET', 'POST'])
 def upload_file2():
     if request.method == 'POST':
         f = request.files['file']
-        imgdata = cv2.resize(cv2.imread(f.filename), (228, 228))
+        path = "TestDataset/TestImageLocalization/"+f.filename
+        imgdata = cv2.resize(cv2.imread(path), (228, 228))
         rimg = np.array(imgdata)
         finalimg = predictDrawbox(rmodel,rimg,encoder)
         return render_template("plot.html",displayimage=finalimg[0],label=finalimg[1])
